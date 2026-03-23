@@ -180,13 +180,15 @@ class DataImporter:
     def _build_auto_mapping(self, columns: List[str]) -> Dict[str, List[str]]:
         """根据实际列名自动构建映射"""
         mapping = {}
-        system_fields = ['business_type', 'bug_type', 'environment', 'severity', 'bug_id', 'title', 'create_time', 'status']
+
+        # 使用所有配置中的字段进行匹配（不只是8个基础字段）
+        all_system_fields = list(self.field_mapping.keys())
 
         for col in columns:
             col_lower = col.lower().strip()
 
             # 尝试匹配每个系统字段
-            for system_field in system_fields:
+            for system_field in all_system_fields:
                 config_names = self.field_mapping.get(system_field, [])
                 if col_lower in [n.lower() for n in config_names]:
                     mapping[system_field] = config_names
@@ -316,12 +318,13 @@ class DataImporter:
         """获取数据预览"""
         return df.head(max_rows)
 
-    def validate_data(self, df: pd.DataFrame) -> Tuple[bool, List[str]]:
+    def validate_data(self, df: pd.DataFrame) -> Tuple[bool, List[str], List[str]]:
         """
         验证数据是否包含必要的维度字段
 
         Returns:
-            (是否有效, 错误信息列表)
+            (是否有效, 错误信息列表, 警告信息列表)
+            注意：建议字段不会影响导入结果，仅作为警告返回
         """
         # 必要字段（必须有）
         required_fields = ['business_type', 'bug_type', 'environment', 'severity']
@@ -331,7 +334,7 @@ class DataImporter:
             if field not in df.columns:
                 errors.append(f"缺少必要字段: {field}")
 
-        # 建议字段（用于增强分析）
+        # 建议字段（用于增强分析，但不影响导入）
         recommended_fields = ['root_cause', 'leak_analysis', 'leak_analysis_type', 'is_regression']
         warnings = []
 
@@ -339,11 +342,9 @@ class DataImporter:
             if field not in df.columns:
                 warnings.append(f"建议添加字段: {field}（用于根因和漏测分析）")
 
-        # 合并错误和警告
-        all_messages = errors + warnings
-
         # 检查数据是否为空
         if len(df) == 0:
             errors.append("数据为空")
 
-        return len(errors) == 0, all_messages
+        # 只有当有真正错误时才返回False，建议字段不影响导入
+        return len(errors) == 0, errors, warnings

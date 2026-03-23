@@ -49,8 +49,8 @@ class TestDataImporter:
     def test_validate_data(self, importer, sample_excel_path):
         """测试数据验证"""
         df = importer.import_from_excel(sample_excel_path)
-        is_valid, errors = importer.validate_data(df)
-        # 简单数据应该有效
+        is_valid, errors, warnings = importer.validate_data(df)
+        # 简单数据应该有效，errors应该为空
         assert is_valid or len(errors) >= 0
 
     def test_normalize_columns(self, importer):

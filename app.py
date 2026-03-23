@@ -282,12 +282,17 @@ def show_import_page():
                         df = df.rename(columns=field_map)
 
                     # 验证
-                    valid, errors = data_importer.validate_data(df)
+                    valid, errors, warnings = data_importer.validate_data(df)
 
                     if valid:
                         st.session_state.data = df
                         st.session_state.data_source = f"Excel: {uploaded_file.name}"
                         st.success("✅ 数据导入成功！")
+
+                        # 显示建议字段警告（不影响导入）
+                        if warnings:
+                            for warn in warnings:
+                                st.info(f"💡 {warn}")
                         st.toast("数据已就绪，可以开始分析", icon="📊")
                         st.rerun()
                     else:
