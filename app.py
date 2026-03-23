@@ -269,10 +269,14 @@ def show_import_page():
                 if st.button("确认导入数据", type="primary"):
                     # 构建字段映射（注意方向：原始列名 → 系统字段名）
                     field_map = {}
+                    st.write("调试信息：")
+                    st.write(f"df.columns (映射前): {list(df.columns)}")
                     for dim_key in dimension_labels.keys():
                         selected = st.session_state.get(f"map_{dim_key}")
+                        st.write(f"  {dim_key} -> {selected}")
                         if selected:
                             field_map[selected] = dim_key  # 方向：原始列名 → 系统字段名
+                    st.write(f"field_map: {field_map}")
 
                     # 重置文件指针位置
                     uploaded_file.seek(0)
@@ -280,9 +284,11 @@ def show_import_page():
                     # 应用映射到已读取的数据
                     if field_map:
                         df = df.rename(columns=field_map)
+                    st.write(f"df.columns (映射后): {list(df.columns)}")
 
                     # 验证
                     valid, errors, warnings = data_importer.validate_data(df)
+                    st.write(f"验证结果: valid={valid}, errors={errors}")
 
                     if valid:
                         st.session_state.data = df
