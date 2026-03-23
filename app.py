@@ -247,7 +247,7 @@ def show_import_page():
 
                     for i, col in enumerate(available_cols):
                         if col:  # 跳过空字符串
-                            col_lower = col.lower().strip()
+                            col_lower = str(col).lower().strip()  # 确保是字符串
                             # 检查是否在映射配置中
                             for mapped_name in mapping_options:
                                 if col_lower == mapped_name.lower().strip():

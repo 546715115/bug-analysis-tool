@@ -170,8 +170,9 @@ class DataImporter:
         # 重命名列
         rename_dict = {}
         for original_col in df.columns:
+            col_str = str(original_col).lower()  # 确保是字符串
             for system_key, possible_names in mapping.items():
-                if original_col.lower() in [n.lower() for n in possible_names]:
+                if col_str in [n.lower() for n in possible_names]:
                     rename_dict[original_col] = system_key
                     break
 
@@ -187,12 +188,12 @@ class DataImporter:
         all_system_fields = list(self.field_mapping.keys())
 
         for col in columns:
-            col_lower = col.lower().strip()
+            col_str = str(col).lower().strip()  # 确保是字符串
 
             # 尝试匹配每个系统字段
             for system_field in all_system_fields:
                 config_names = self.field_mapping.get(system_field, [])
-                if col_lower in [n.lower() for n in config_names]:
+                if col_str in [n.lower() for n in config_names]:
                     mapping[system_field] = config_names
                     break
 
