@@ -110,13 +110,14 @@ class DataImporter:
         'xls': 'application/vnd.ms-excel'
     }
 
-    def import_from_excel_upload(self, uploaded_file, field_mapping: Optional[Dict[str, str]] = None) -> pd.DataFrame:
+    def import_from_excel_upload(self, uploaded_file, field_mapping: Optional[Dict[str, str]] = None, skip_normalization: bool = False) -> pd.DataFrame:
         """
         从上传的Excel文件导入数据
 
         Args:
             uploaded_file: Streamlit上传的文件对象
             field_mapping: 自定义字段映射
+            skip_normalization: 是否跳过列名标准化（用于手动映射场景）
 
         Returns:
             DataFrame
@@ -140,8 +141,9 @@ class DataImporter:
         else:
             df = pd.read_excel(uploaded_file)
 
-        # 列名标准化
-        df = self._normalize_columns(df, field_mapping)
+        # 列名标准化（可选跳过，用于手动映射场景）
+        if not skip_normalization:
+            df = self._normalize_columns(df, field_mapping)
 
         return df
 

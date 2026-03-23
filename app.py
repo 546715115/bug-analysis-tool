@@ -214,8 +214,8 @@ def show_import_page():
 
         if uploaded_file is not None:
             try:
-                # 读取并显示预览
-                df = data_importer.import_from_excel_upload(uploaded_file)
+                # 读取并显示预览（不自动标准化，保留原始列名用于手动映射）
+                df = data_importer.import_from_excel_upload(uploaded_file, skip_normalization=True)
 
                 st.success(f"✅ 成功读取 {len(df)} 条数据")
 
