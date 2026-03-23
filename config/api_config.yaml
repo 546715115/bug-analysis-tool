@@ -1,0 +1,36 @@
+# API接口配置模板
+# 可在此处配置多个API接口
+
+apis:
+  # 示例API配置
+  - name: "问题单接口"
+    enabled: false
+    endpoint: "http://your-server/api/bugs"
+    method: "GET"
+    headers:
+      Content-Type: "application/json"
+      # Authorization: "Bearer your-token"
+    params:
+      page: 1
+      page_size: 100
+    auth:
+      type: "bearer"
+      token: "your-token-here"
+    response_mapping:
+      data_path: "data.list"
+      total_path: "data.total"
+      fields:
+        bug_id: "id"
+        business_type: "module"
+        bug_type: "bug_type"
+        environment: "env"
+        severity: "level"
+        title: "title"
+        create_time: "created_at"
+        status: "status"
+    pagination:
+      enabled: true
+      page_param: "page"
+      size_param: "page_size"
+      total_param: "total"
+      max_pages: 100

@@ -1,0 +1,7 @@
+salt: ffff5bb93f1efb6d87bed5453ff28107
+session_timeout_minutes: 120
+users:
+  admin:
+    name: 管理员
+    password: ec80eb997ffb824c3367bec27b0940a5ea00e8b9808a1aa3bd8be84a47010191
+    role: admin

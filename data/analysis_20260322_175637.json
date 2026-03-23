@@ -1,0 +1,22 @@
+{
+  "source": "Excel: test_data_all_fields.xlsx",
+  "saved_at": "2026-03-22T17:56:37.325399",
+  "rows": 550,
+  "columns": [
+    "bug_id",
+    "business_type",
+    "bug_type",
+    "environment",
+    "severity",
+    "title",
+    "create_time",
+    "status",
+    "根因分类",
+    "根因详细",
+    "整改措施",
+    "漏测分析",
+    "漏测问题类型",
+    "是否回归",
+    "汇总总结"
+  ]
+}

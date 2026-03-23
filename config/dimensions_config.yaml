@@ -1,0 +1,262 @@
+# 维度配置文件
+# 可在此处自定义配置各个维度的选项
+
+dimensions:
+  # 业务类型维度
+  business_type:
+    name: "业务类型"
+    type: "select"
+    options:
+      - value: "order"
+        label: "订单模块"
+      - value: "payment"
+        label: "支付模块"
+      - value: "user"
+        label: "用户模块"
+      - value: "product"
+        label: "商品模块"
+      - value: "inventory"
+        label: "库存模块"
+      - value: "logistics"
+        label: "物流模块"
+      - value: "aftersales"
+        label: "售后模块"
+      - value: "marketing"
+        label: "营销模块"
+      - value: "report"
+        label: "报表模块"
+      - value: "operation"
+        label: "运营模块"
+    customizable: true
+
+  # 问题单类型维度
+  bug_type:
+    name: "问题单类型"
+    type: "multi_select"
+    options:
+      - value: "function"
+        label: "功能缺陷"
+      - value: "performance"
+        label: "性能问题"
+      - value: "reliability"
+        label: "可靠性问题"
+      - value: "compatibility"
+        label: "兼容性问题"
+      - value: "security"
+        label: "安全问题"
+      - value: "ui"
+        label: "界面问题"
+      - value: "data"
+        label: "数据问题"
+      - value: "flow"
+        label: "流程问题"
+      - value: "requirement"
+        label: "需求遗漏"
+      - value: "other"
+        label: "其他问题"
+    customizable: true
+
+  # 发现环境维度
+  environment:
+    name: "发现环境"
+    type: "select"
+    options:
+      - value: "test"
+        label: "测试环境"
+      - value: "gray"
+        label: "灰度环境"
+      - value: "prod"
+        label: "现网环境"
+      - value: "hcso"
+        label: "HCSO"
+      - value: "partner"
+        label: "合营云"
+      - value: "private"
+        label: "私有化部署"
+      - value: "prepub"
+        label: "预发布环境"
+      - value: "uat"
+        label: "UAT环境"
+    customizable: true
+
+  # 影响程度维度
+  severity:
+    name: "影响程度"
+    type: "select"
+    options:
+      - value: "P0"
+        label: "P0-致命"
+      - value: "P1"
+        label: "P1-严重"
+      - value: "P2"
+        label: "P2-一般"
+      - value: "P3"
+        label: "P3-提示"
+    customizable: true
+
+  # 根因分类维度（问题源头 - 谁造成的）
+  root_cause:
+    name: "根因分类"
+    type: "select"
+    options:
+      - value: "requirement"
+        label: "需求问题"
+      - value: "design"
+        label: "设计问题"
+      - value: "development"
+        label: "开发问题"
+      - value: "third_party"
+        label: "第三方问题"
+      - value: "other"
+        label: "其他"
+    customizable: true
+
+  # 根因详细维度（新增）
+  root_cause_detail:
+    name: "根因详细"
+    type: "text"
+    customizable: true
+
+  # 整改措施维度（新增）
+  fix_measure:
+    name: "整改措施"
+    type: "text"
+    customizable: true
+
+  # 漏测分析维度（为何测试阶段未发现）
+  leak_analysis:
+    name: "漏测分析"
+    type: "select"
+    options:
+      - value: "coverage"
+        label: "测试覆盖不足"
+      - value: "requirement_deviation"
+        label: "需求理解偏差"
+      - value: "design_defect"
+        label: "设计缺陷"
+      - value: "development_omission"
+        label: "开发疏漏"
+      - value: "third_party"
+        label: "第三方因素"
+      - value: "other"
+        label: "其他"
+    customizable: true
+
+  # 漏测问题类型（新增）
+  leak_analysis_type:
+    name: "漏测问题类型"
+    type: "select"
+    options:
+      - value: "function"
+        label: "功能缺陷"
+      - value: "performance"
+        label: "性能问题"
+      - value: "reliability"
+        label: "可靠性问题"
+      - value: "compatibility"
+        label: "兼容性问题"
+      - value: "security"
+        label: "安全问题"
+      - value: "data"
+        label: "数据问题"
+      - value: "other"
+        label: "其他问题"
+    customizable: true
+
+  # 是否回归（新增）
+  is_regression:
+    name: "是否回归"
+    type: "select"
+    options:
+      - value: "yes"
+        label: "是"
+      - value: "no"
+        label: "否"
+    customizable: true
+
+  # 汇总总结分析（新增）
+  summary_analysis:
+    name: "汇总总结"
+    type: "text"
+    customizable: true
+
+# 字段映射配置（用于数据导入时自动识别）
+field_mapping:
+  # Excel列名到系统维度的映射
+  business_type:
+    - "业务模块"
+    - "业务类型"
+    - "模块"
+    - "business"
+    - "module"
+    - "business_type"
+  bug_type:
+    - "问题类型"
+    - "类型"
+    - "bug_type"
+    - "type"
+    - "issue_type"
+  environment:
+    - "发现环境"
+    - "环境"
+    - "environment"
+    - "env"
+    - "found_env"
+  severity:
+    - "影响程度"
+    - "严重程度"
+    - "级别"
+    - "severity"
+    - "level"
+    - "priority"
+  bug_id:
+    - "问题单号"
+    - "BUG编号"
+    - "bug_id"
+    - "id"
+    - "issue_id"
+  title:
+    - "问题标题"
+    - "标题"
+    - "title"
+    - "summary"
+  create_time:
+    - "创建时间"
+    - "发现时间"
+    - "created_at"
+    - "create_time"
+    - "found_time"
+  status:
+    - "状态"
+    - "status"
+    - "state"
+  root_cause:
+    - "根因分类"
+    - "根因"
+    - "root_cause"
+    - "原因分类"
+  root_cause_detail:
+    - "根因详细"
+    - "根因描述"
+    - "详细原因"
+    - "root_cause_detail"
+  fix_measure:
+    - "整改措施"
+    - "改进措施"
+    - "fix_measure"
+    - "措施"
+  leak_analysis:
+    - "漏测分析"
+    - "漏测原因"
+    - "leak_analysis"
+  leak_analysis_type:
+    - "漏测问题类型"
+    - "leak_type"
+  is_regression:
+    - "是否回归"
+    - "回归问题"
+    - "is_regression"
+  summary_analysis:
+    - "汇总总结"
+    - "总结分析"
+    - "summary_analysis"
