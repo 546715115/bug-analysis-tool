@@ -267,12 +267,12 @@ def show_import_page():
 
                 # 确认导入
                 if st.button("确认导入数据", type="primary"):
-                    # 构建字段映射
+                    # 构建字段映射（注意方向：原始列名 → 系统字段名）
                     field_map = {}
                     for dim_key in dimension_labels.keys():
                         selected = st.session_state.get(f"map_{dim_key}")
                         if selected:
-                            field_map[dim_key] = selected
+                            field_map[selected] = dim_key  # 方向：原始列名 → 系统字段名
 
                     # 重置文件指针位置
                     uploaded_file.seek(0)
